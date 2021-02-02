@@ -29,33 +29,36 @@ namespace SerialCom
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageString = new System.Windows.Forms.TabPage();
+            this.buttonResult = new System.Windows.Forms.Button();
+            this.checkBoxCase = new System.Windows.Forms.CheckBox();
+            this.textBoxResult = new System.Windows.Forms.TextBox();
+            this.textBoxInput2 = new System.Windows.Forms.TextBox();
+            this.textBoxInput1 = new System.Windows.Forms.TextBox();
             this.tabPageLoop = new System.Windows.Forms.TabPage();
             this.tabPageList = new System.Windows.Forms.TabPage();
-            this.tabPageSerial = new System.Windows.Forms.TabPage();
-            this.textBoxInput1 = new System.Windows.Forms.TextBox();
-            this.textBoxInput2 = new System.Windows.Forms.TextBox();
-            this.textBoxResult = new System.Windows.Forms.TextBox();
-            this.checkBoxCase = new System.Windows.Forms.CheckBox();
-            this.buttonResult = new System.Windows.Forms.Button();
-            this.textBoxAdd = new System.Windows.Forms.TextBox();
-            this.comboBoxRemove = new System.Windows.Forms.ComboBox();
-            this.listBoxResult = new System.Windows.Forms.ListBox();
-            this.buttonAdd = new System.Windows.Forms.Button();
-            this.buttonMinus = new System.Windows.Forms.Button();
             this.checkBoxSorted = new System.Windows.Forms.CheckBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.buttonMinus = new System.Windows.Forms.Button();
+            this.buttonAdd = new System.Windows.Forms.Button();
+            this.listBoxResult = new System.Windows.Forms.ListBox();
+            this.comboBoxRemove = new System.Windows.Forms.ComboBox();
+            this.textBoxAdd = new System.Windows.Forms.TextBox();
+            this.tabPageSerial = new System.Windows.Forms.TabPage();
+            this.labelCommand = new System.Windows.Forms.Label();
+            this.labelBitRate = new System.Windows.Forms.Label();
+            this.labelComPort = new System.Windows.Forms.Label();
+            this.textBoxSerialDataRecieved = new System.Windows.Forms.TextBox();
+            this.radioButtonConnectedStatus = new System.Windows.Forms.RadioButton();
+            this.buttonRecieve = new System.Windows.Forms.Button();
+            this.buttonSend = new System.Windows.Forms.Button();
+            this.textBoxCommand = new System.Windows.Forms.TextBox();
+            this.buttonDisconnect = new System.Windows.Forms.Button();
+            this.buttonConnect = new System.Windows.Forms.Button();
+            this.comboBoxBitRate = new System.Windows.Forms.ComboBox();
+            this.comboBoxComPort = new System.Windows.Forms.ComboBox();
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.tabControlMain.SuspendLayout();
             this.tabPageString.SuspendLayout();
             this.tabPageList.SuspendLayout();
@@ -90,6 +93,56 @@ namespace SerialCom
             this.tabPageString.Text = "String";
             this.tabPageString.UseVisualStyleBackColor = true;
             // 
+            // buttonResult
+            // 
+            this.buttonResult.Location = new System.Drawing.Point(26, 150);
+            this.buttonResult.Name = "buttonResult";
+            this.buttonResult.Size = new System.Drawing.Size(205, 23);
+            this.buttonResult.TabIndex = 4;
+            this.buttonResult.Text = "Result";
+            this.buttonResult.UseVisualStyleBackColor = true;
+            this.buttonResult.Click += new System.EventHandler(this.buttonResult_Click);
+            // 
+            // checkBoxCase
+            // 
+            this.checkBoxCase.AutoSize = true;
+            this.checkBoxCase.Checked = true;
+            this.checkBoxCase.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxCase.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxCase.Location = new System.Drawing.Point(26, 88);
+            this.checkBoxCase.Name = "checkBoxCase";
+            this.checkBoxCase.Size = new System.Drawing.Size(117, 20);
+            this.checkBoxCase.TabIndex = 3;
+            this.checkBoxCase.Text = "Case Sensitive";
+            this.checkBoxCase.UseVisualStyleBackColor = true;
+            // 
+            // textBoxResult
+            // 
+            this.textBoxResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxResult.Location = new System.Drawing.Point(285, 32);
+            this.textBoxResult.Multiline = true;
+            this.textBoxResult.Name = "textBoxResult";
+            this.textBoxResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxResult.Size = new System.Drawing.Size(276, 141);
+            this.textBoxResult.TabIndex = 2;
+            this.textBoxResult.TabStop = false;
+            // 
+            // textBoxInput2
+            // 
+            this.textBoxInput2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxInput2.Location = new System.Drawing.Point(26, 60);
+            this.textBoxInput2.Name = "textBoxInput2";
+            this.textBoxInput2.Size = new System.Drawing.Size(205, 22);
+            this.textBoxInput2.TabIndex = 2;
+            // 
+            // textBoxInput1
+            // 
+            this.textBoxInput1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxInput1.Location = new System.Drawing.Point(26, 32);
+            this.textBoxInput1.Name = "textBoxInput1";
+            this.textBoxInput1.Size = new System.Drawing.Size(205, 22);
+            this.textBoxInput1.TabIndex = 1;
+            // 
             // tabPageLoop
             // 
             this.tabPageLoop.Location = new System.Drawing.Point(4, 22);
@@ -115,120 +168,6 @@ namespace SerialCom
             this.tabPageList.Text = "List";
             this.tabPageList.UseVisualStyleBackColor = true;
             // 
-            // tabPageSerial
-            // 
-            this.tabPageSerial.Controls.Add(this.label2);
-            this.tabPageSerial.Controls.Add(this.label1);
-            this.tabPageSerial.Controls.Add(this.textBox2);
-            this.tabPageSerial.Controls.Add(this.radioButton1);
-            this.tabPageSerial.Controls.Add(this.button4);
-            this.tabPageSerial.Controls.Add(this.button3);
-            this.tabPageSerial.Controls.Add(this.textBox1);
-            this.tabPageSerial.Controls.Add(this.button2);
-            this.tabPageSerial.Controls.Add(this.button1);
-            this.tabPageSerial.Controls.Add(this.comboBox2);
-            this.tabPageSerial.Controls.Add(this.comboBox1);
-            this.tabPageSerial.Location = new System.Drawing.Point(4, 22);
-            this.tabPageSerial.Name = "tabPageSerial";
-            this.tabPageSerial.Size = new System.Drawing.Size(792, 424);
-            this.tabPageSerial.TabIndex = 3;
-            this.tabPageSerial.Text = "Serial";
-            this.tabPageSerial.UseVisualStyleBackColor = true;
-            // 
-            // textBoxInput1
-            // 
-            this.textBoxInput1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxInput1.Location = new System.Drawing.Point(26, 32);
-            this.textBoxInput1.Name = "textBoxInput1";
-            this.textBoxInput1.Size = new System.Drawing.Size(205, 22);
-            this.textBoxInput1.TabIndex = 1;
-            // 
-            // textBoxInput2
-            // 
-            this.textBoxInput2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxInput2.Location = new System.Drawing.Point(26, 60);
-            this.textBoxInput2.Name = "textBoxInput2";
-            this.textBoxInput2.Size = new System.Drawing.Size(205, 22);
-            this.textBoxInput2.TabIndex = 2;
-            // 
-            // textBoxResult
-            // 
-            this.textBoxResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxResult.Location = new System.Drawing.Point(285, 32);
-            this.textBoxResult.Multiline = true;
-            this.textBoxResult.Name = "textBoxResult";
-            this.textBoxResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxResult.Size = new System.Drawing.Size(276, 141);
-            this.textBoxResult.TabIndex = 2;
-            this.textBoxResult.TabStop = false;
-            // 
-            // checkBoxCase
-            // 
-            this.checkBoxCase.AutoSize = true;
-            this.checkBoxCase.Checked = true;
-            this.checkBoxCase.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxCase.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCase.Location = new System.Drawing.Point(26, 88);
-            this.checkBoxCase.Name = "checkBoxCase";
-            this.checkBoxCase.Size = new System.Drawing.Size(117, 20);
-            this.checkBoxCase.TabIndex = 3;
-            this.checkBoxCase.Text = "Case Sensitive";
-            this.checkBoxCase.UseVisualStyleBackColor = true;
-            // 
-            // buttonResult
-            // 
-            this.buttonResult.Location = new System.Drawing.Point(26, 150);
-            this.buttonResult.Name = "buttonResult";
-            this.buttonResult.Size = new System.Drawing.Size(205, 23);
-            this.buttonResult.TabIndex = 4;
-            this.buttonResult.Text = "Result";
-            this.buttonResult.UseVisualStyleBackColor = true;
-            this.buttonResult.Click += new System.EventHandler(this.buttonResult_Click);
-            // 
-            // textBoxAdd
-            // 
-            this.textBoxAdd.Location = new System.Drawing.Point(18, 23);
-            this.textBoxAdd.Name = "textBoxAdd";
-            this.textBoxAdd.Size = new System.Drawing.Size(121, 20);
-            this.textBoxAdd.TabIndex = 0;
-            // 
-            // comboBoxRemove
-            // 
-            this.comboBoxRemove.FormattingEnabled = true;
-            this.comboBoxRemove.Location = new System.Drawing.Point(18, 55);
-            this.comboBoxRemove.Name = "comboBoxRemove";
-            this.comboBoxRemove.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxRemove.TabIndex = 1;
-            this.comboBoxRemove.Enter += new System.EventHandler(this.comboBoxRemove_Enter);
-            // 
-            // listBoxResult
-            // 
-            this.listBoxResult.FormattingEnabled = true;
-            this.listBoxResult.Location = new System.Drawing.Point(204, 23);
-            this.listBoxResult.Name = "listBoxResult";
-            this.listBoxResult.Size = new System.Drawing.Size(120, 264);
-            this.listBoxResult.TabIndex = 2;
-            // 
-            // buttonAdd
-            // 
-            this.buttonAdd.Location = new System.Drawing.Point(145, 23);
-            this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(28, 23);
-            this.buttonAdd.TabIndex = 3;
-            this.buttonAdd.Text = "+";
-            this.buttonAdd.UseVisualStyleBackColor = true;
-            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
-            // 
-            // buttonMinus
-            // 
-            this.buttonMinus.Location = new System.Drawing.Point(145, 53);
-            this.buttonMinus.Name = "buttonMinus";
-            this.buttonMinus.Size = new System.Drawing.Size(28, 23);
-            this.buttonMinus.TabIndex = 4;
-            this.buttonMinus.Text = "-";
-            this.buttonMinus.UseVisualStyleBackColor = true;
-            this.buttonMinus.Click += new System.EventHandler(this.buttonMinus_Click);
-            // 
             // checkBoxSorted
             // 
             this.checkBoxSorted.AutoSize = true;
@@ -240,102 +179,197 @@ namespace SerialCom
             this.checkBoxSorted.UseVisualStyleBackColor = true;
             this.checkBoxSorted.CheckedChanged += new System.EventHandler(this.checkBoxSorted_CheckedChanged);
             // 
-            // comboBox1
+            // buttonMinus
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(44, 29);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 0;
+            this.buttonMinus.Location = new System.Drawing.Point(145, 53);
+            this.buttonMinus.Name = "buttonMinus";
+            this.buttonMinus.Size = new System.Drawing.Size(28, 23);
+            this.buttonMinus.TabIndex = 4;
+            this.buttonMinus.Text = "-";
+            this.buttonMinus.UseVisualStyleBackColor = true;
+            this.buttonMinus.Click += new System.EventHandler(this.buttonMinus_Click);
             // 
-            // comboBox2
+            // buttonAdd
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(44, 65);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 1;
+            this.buttonAdd.Location = new System.Drawing.Point(145, 23);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(28, 23);
+            this.buttonAdd.TabIndex = 3;
+            this.buttonAdd.Text = "+";
+            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
-            // button1
+            // listBoxResult
             // 
-            this.button1.Location = new System.Drawing.Point(44, 149);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.listBoxResult.FormattingEnabled = true;
+            this.listBoxResult.Location = new System.Drawing.Point(204, 23);
+            this.listBoxResult.Name = "listBoxResult";
+            this.listBoxResult.Size = new System.Drawing.Size(120, 264);
+            this.listBoxResult.TabIndex = 2;
             // 
-            // button2
+            // comboBoxRemove
             // 
-            this.button2.Location = new System.Drawing.Point(44, 179);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.comboBoxRemove.FormattingEnabled = true;
+            this.comboBoxRemove.Location = new System.Drawing.Point(18, 55);
+            this.comboBoxRemove.Name = "comboBoxRemove";
+            this.comboBoxRemove.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxRemove.TabIndex = 1;
+            this.comboBoxRemove.Enter += new System.EventHandler(this.comboBoxRemove_Enter);
             // 
-            // textBox1
+            // textBoxAdd
             // 
-            this.textBox1.Location = new System.Drawing.Point(293, 30);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 4;
+            this.textBoxAdd.Location = new System.Drawing.Point(18, 23);
+            this.textBoxAdd.Name = "textBoxAdd";
+            this.textBoxAdd.Size = new System.Drawing.Size(121, 20);
+            this.textBoxAdd.TabIndex = 0;
             // 
-            // button3
+            // tabPageSerial
             // 
-            this.button3.Location = new System.Drawing.Point(293, 149);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            this.tabPageSerial.Controls.Add(this.labelCommand);
+            this.tabPageSerial.Controls.Add(this.labelBitRate);
+            this.tabPageSerial.Controls.Add(this.labelComPort);
+            this.tabPageSerial.Controls.Add(this.textBoxSerialDataRecieved);
+            this.tabPageSerial.Controls.Add(this.radioButtonConnectedStatus);
+            this.tabPageSerial.Controls.Add(this.buttonRecieve);
+            this.tabPageSerial.Controls.Add(this.buttonSend);
+            this.tabPageSerial.Controls.Add(this.textBoxCommand);
+            this.tabPageSerial.Controls.Add(this.buttonDisconnect);
+            this.tabPageSerial.Controls.Add(this.buttonConnect);
+            this.tabPageSerial.Controls.Add(this.comboBoxBitRate);
+            this.tabPageSerial.Controls.Add(this.comboBoxComPort);
+            this.tabPageSerial.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSerial.Name = "tabPageSerial";
+            this.tabPageSerial.Size = new System.Drawing.Size(792, 424);
+            this.tabPageSerial.TabIndex = 3;
+            this.tabPageSerial.Text = "Serial";
+            this.tabPageSerial.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // labelCommand
             // 
-            this.button4.Location = new System.Drawing.Point(293, 179);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = true;
+            this.labelCommand.AutoSize = true;
+            this.labelCommand.Location = new System.Drawing.Point(212, 32);
+            this.labelCommand.Name = "labelCommand";
+            this.labelCommand.Size = new System.Drawing.Size(54, 13);
+            this.labelCommand.TabIndex = 11;
+            this.labelCommand.Text = "Command";
             // 
-            // radioButton1
+            // labelBitRate
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(139, 149);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(85, 17);
-            this.radioButton1.TabIndex = 7;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "radioButton1";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.labelBitRate.AutoSize = true;
+            this.labelBitRate.Location = new System.Drawing.Point(12, 68);
+            this.labelBitRate.Name = "labelBitRate";
+            this.labelBitRate.Size = new System.Drawing.Size(40, 13);
+            this.labelBitRate.TabIndex = 10;
+            this.labelBitRate.Text = "Bit rate";
             // 
-            // textBox2
+            // labelComPort
             // 
-            this.textBox2.Location = new System.Drawing.Point(446, 30);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(321, 300);
-            this.textBox2.TabIndex = 8;
+            this.labelComPort.AutoSize = true;
+            this.labelComPort.Location = new System.Drawing.Point(12, 32);
+            this.labelComPort.Name = "labelComPort";
+            this.labelComPort.Size = new System.Drawing.Size(49, 13);
+            this.labelComPort.TabIndex = 9;
+            this.labelComPort.Text = "Com port";
             // 
-            // label1
+            // textBoxSerialDataRecieved
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(0, 29);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "label1";
+            this.textBoxSerialDataRecieved.Location = new System.Drawing.Point(446, 30);
+            this.textBoxSerialDataRecieved.Multiline = true;
+            this.textBoxSerialDataRecieved.Name = "textBoxSerialDataRecieved";
+            this.textBoxSerialDataRecieved.ReadOnly = true;
+            this.textBoxSerialDataRecieved.Size = new System.Drawing.Size(321, 300);
+            this.textBoxSerialDataRecieved.TabIndex = 8;
             // 
-            // label2
+            // radioButtonConnectedStatus
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(0, 68);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "label2";
+            this.radioButtonConnectedStatus.AutoSize = true;
+            this.radioButtonConnectedStatus.Enabled = false;
+            this.radioButtonConnectedStatus.Location = new System.Drawing.Point(148, 152);
+            this.radioButtonConnectedStatus.Name = "radioButtonConnectedStatus";
+            this.radioButtonConnectedStatus.Size = new System.Drawing.Size(14, 13);
+            this.radioButtonConnectedStatus.TabIndex = 7;
+            this.radioButtonConnectedStatus.TabStop = true;
+            this.radioButtonConnectedStatus.UseVisualStyleBackColor = true;
+            // 
+            // buttonRecieve
+            // 
+            this.buttonRecieve.Location = new System.Drawing.Point(293, 179);
+            this.buttonRecieve.Name = "buttonRecieve";
+            this.buttonRecieve.Size = new System.Drawing.Size(75, 23);
+            this.buttonRecieve.TabIndex = 6;
+            this.buttonRecieve.Text = "Recieve";
+            this.buttonRecieve.UseVisualStyleBackColor = true;
+            this.buttonRecieve.Click += new System.EventHandler(this.buttonRecieve_Click);
+            // 
+            // buttonSend
+            // 
+            this.buttonSend.Location = new System.Drawing.Point(293, 149);
+            this.buttonSend.Name = "buttonSend";
+            this.buttonSend.Size = new System.Drawing.Size(75, 23);
+            this.buttonSend.TabIndex = 5;
+            this.buttonSend.Text = "Send";
+            this.buttonSend.UseVisualStyleBackColor = true;
+            this.buttonSend.Click += new System.EventHandler(this.buttonSend_Click);
+            // 
+            // textBoxCommand
+            // 
+            this.textBoxCommand.Location = new System.Drawing.Point(272, 29);
+            this.textBoxCommand.Name = "textBoxCommand";
+            this.textBoxCommand.Size = new System.Drawing.Size(147, 20);
+            this.textBoxCommand.TabIndex = 4;
+            // 
+            // buttonDisconnect
+            // 
+            this.buttonDisconnect.Location = new System.Drawing.Point(67, 179);
+            this.buttonDisconnect.Name = "buttonDisconnect";
+            this.buttonDisconnect.Size = new System.Drawing.Size(75, 23);
+            this.buttonDisconnect.TabIndex = 3;
+            this.buttonDisconnect.Text = "Disconnect";
+            this.buttonDisconnect.UseVisualStyleBackColor = true;
+            this.buttonDisconnect.Click += new System.EventHandler(this.buttonDisconnect_Click);
+            // 
+            // buttonConnect
+            // 
+            this.buttonConnect.Location = new System.Drawing.Point(67, 149);
+            this.buttonConnect.Name = "buttonConnect";
+            this.buttonConnect.Size = new System.Drawing.Size(75, 23);
+            this.buttonConnect.TabIndex = 2;
+            this.buttonConnect.Text = "Connect";
+            this.buttonConnect.UseVisualStyleBackColor = true;
+            this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
+            // 
+            // comboBoxBitRate
+            // 
+            this.comboBoxBitRate.FormattingEnabled = true;
+            this.comboBoxBitRate.Items.AddRange(new object[] {
+            "2400",
+            "4800",
+            "9600",
+            "14400",
+            "19200",
+            "38400",
+            "57600",
+            "115200",
+            "128000",
+            "256000",
+            ""});
+            this.comboBoxBitRate.Location = new System.Drawing.Point(67, 65);
+            this.comboBoxBitRate.Name = "comboBoxBitRate";
+            this.comboBoxBitRate.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxBitRate.TabIndex = 1;
+            // 
+            // comboBoxComPort
+            // 
+            this.comboBoxComPort.FormattingEnabled = true;
+            this.comboBoxComPort.Location = new System.Drawing.Point(67, 29);
+            this.comboBoxComPort.Name = "comboBoxComPort";
+            this.comboBoxComPort.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxComPort.TabIndex = 0;
+            this.comboBoxComPort.Enter += new System.EventHandler(this.comboBoxComPort_Enter);
+            // 
+            // serialPort1
+            // 
+            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
             // FormMain
             // 
@@ -375,17 +409,19 @@ namespace SerialCom
         private System.Windows.Forms.ComboBox comboBoxRemove;
         private System.Windows.Forms.TextBox textBoxAdd;
         private System.Windows.Forms.CheckBox checkBoxSorted;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label labelBitRate;
+        private System.Windows.Forms.Label labelComPort;
+        private System.Windows.Forms.TextBox textBoxSerialDataRecieved;
+        private System.Windows.Forms.RadioButton radioButtonConnectedStatus;
+        private System.Windows.Forms.Button buttonRecieve;
+        private System.Windows.Forms.Button buttonSend;
+        private System.Windows.Forms.TextBox textBoxCommand;
+        private System.Windows.Forms.Button buttonDisconnect;
+        private System.Windows.Forms.Button buttonConnect;
+        private System.Windows.Forms.ComboBox comboBoxBitRate;
+        private System.Windows.Forms.ComboBox comboBoxComPort;
+        private System.Windows.Forms.Label labelCommand;
+        private System.IO.Ports.SerialPort serialPort1;
     }
 }
 

@@ -119,5 +119,79 @@ namespace SerialCom
                 listBoxResult.Sorted = false;
             }
         }
+
+        private void comboBoxComPort_Enter(object sender, EventArgs e)
+        {
+            string[] comPorts = System.IO.Ports.SerialPort.GetPortNames();
+
+            foreach (var comPort in comPorts)
+            {
+                comboBoxComPort.Items.Add(comPort);
+            }
+
+        }
+
+        private void buttonConnect_Click(object sender, EventArgs e)
+        {
+            if (comboBoxComPort.SelectedIndex > -1 && comboBoxBitRate.SelectedIndex > -1 && !serialPort1.IsOpen)
+            {
+                serialPort1.PortName = comboBoxComPort.SelectedItem.ToString();
+                serialPort1.BaudRate = int.Parse(comboBoxBitRate.SelectedItem.ToString());
+                serialPort1.Open();
+            }
+        }
+
+        private void buttonDisconnect_Click(object sender, EventArgs e)
+        {
+            if (serialPort1.IsOpen)
+            {
+                serialPort1.Close();
+            }
+            
+        }
+
+        private void buttonSend_Click(object sender, EventArgs e)
+        {
+            if (serialPort1.IsOpen)
+            {
+                serialPort1.WriteLine(textBoxCommand.Text);
+            }
+            
+        }
+
+        private void buttonRecieve_Click(object sender, EventArgs e)
+        {
+            if (serialPort1.IsOpen)
+            {
+                textBoxSerialDataRecieved.AppendText(serialPort1.ReadExisting().ToString());
+                serialPort1.DiscardInBuffer();
+            }
+            
+        }
+
+        delegate void UpdateTextInSerialBoxCallback(string data);
+        private void UpdateTextInSerialBox(string data)
+        {
+            if (this.textBoxSerialDataRecieved.InvokeRequired)
+            {
+                UpdateTextInSerialBoxCallback d = new UpdateTextInSerialBoxCallback(UpdateTextInSerialBox);
+                this.Invoke(d, new object[] { data });
+            }
+            else
+            {
+                this.textBoxSerialDataRecieved.AppendText(data);
+            }
+        }
+
+
+
+        private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
+        {
+            System.IO.Ports.SerialPort sp = (System.IO.Ports.SerialPort)sender;
+            string indata = sp.ReadExisting();
+
+            UpdateTextInSerialBox(indata);
+
+        }
     }
 }
