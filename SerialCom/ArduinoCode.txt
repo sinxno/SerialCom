@@ -1,0 +1,103 @@
+//Constant for the button pin
+const int buttonPin = 2;
+
+//variables for state of button and LED
+int buttonState = 0;
+int ledState = 0;
+
+//Variables for handling serial data
+String inputString = "";
+bool stringComplete = false;
+
+
+void setup() {
+  // Setup pins and serial:
+  pinMode(LED_BUILTIN, OUTPUT);
+
+  pinMode(buttonPin, INPUT_PULLUP);
+  digitalWrite(LED_BUILTIN, LOW);
+
+  Serial.begin(9600);
+  Serial.println("Arduino connected\n");
+}
+
+//A function/method to turn the LED on
+void turnLedOn() {
+  // turn LED on:
+  digitalWrite(LED_BUILTIN, HIGH);
+  ledState = HIGH;
+}
+
+//A function/method to turn the LED off
+void turnLedOff() {
+  // turn LED off:
+  digitalWrite(LED_BUILTIN, LOW);
+  ledState = LOW;
+}
+
+
+
+void loop() {
+  // read the state of the pushbutton value:
+  buttonState = digitalRead(buttonPin);
+
+  // check if the button is pressed and the led is off.
+  if (buttonState == LOW && ledState == LOW) {
+    turnLedOn();
+  }
+
+  //check if the button is pressed and the led is on
+  else if (buttonState == LOW && ledState == HIGH) {
+    turnLedOff();
+  }
+
+  //Check if an string has been read
+  if (stringComplete) {
+
+    //If command "LEDon" is recieved, turn the LED on
+    if (inputString == "LEDon\n") {
+      turnLedOn();
+    }
+
+    //If command "LEDoff" is recieved, turn the LED off
+    if (inputString == "LEDoff\n") {
+      turnLedOff();
+    }
+
+    //If command "LEDstate" is recieved, return the state of the LED
+    if (inputString == "LEDstate\n") {
+      if (ledState == LOW) {
+        Serial.println("LED is off\n");
+      }
+      else {
+        Serial.println("LED is on\n");
+      }
+    }
+
+
+    //If command "buttonstate" is recieved, return the state of the button
+    if (inputString == "buttonstate\n") {
+      if (buttonState == LOW) {
+        Serial.println("Button is pressed\n");
+      }
+      else {
+        Serial.println("Button is not pressed\n");
+      }
+    }
+
+    //reset the serial variables
+    inputString = "";
+    stringComplete = false;
+  }
+
+
+}
+
+//Runs when there is data on the serial port. Stores the data as an string, and sets stringComplete to true when all data is stored
+void serialEvent() {
+  while (Serial.available()) {
+    inputString = Serial.readString();
+    stringComplete = true;
+  }
+}
+

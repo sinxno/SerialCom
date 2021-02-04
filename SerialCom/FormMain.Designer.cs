@@ -59,6 +59,7 @@ namespace SerialCom
             this.comboBoxBitRate = new System.Windows.Forms.ComboBox();
             this.comboBoxComPort = new System.Windows.Forms.ComboBox();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabControlMain.SuspendLayout();
             this.tabPageString.SuspendLayout();
             this.tabPageList.SuspendLayout();
@@ -283,7 +284,6 @@ namespace SerialCom
             // radioButtonConnectedStatus
             // 
             this.radioButtonConnectedStatus.AutoSize = true;
-            this.radioButtonConnectedStatus.Enabled = false;
             this.radioButtonConnectedStatus.Location = new System.Drawing.Point(148, 152);
             this.radioButtonConnectedStatus.Name = "radioButtonConnectedStatus";
             this.radioButtonConnectedStatus.Size = new System.Drawing.Size(14, 13);
@@ -371,6 +371,12 @@ namespace SerialCom
             // 
             this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -422,6 +428,7 @@ namespace SerialCom
         private System.Windows.Forms.ComboBox comboBoxComPort;
         private System.Windows.Forms.Label labelCommand;
         private System.IO.Ports.SerialPort serialPort1;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

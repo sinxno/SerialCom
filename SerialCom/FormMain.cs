@@ -193,5 +193,17 @@ namespace SerialCom
             UpdateTextInSerialBox(indata);
 
         }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (serialPort1.IsOpen)
+            {
+                radioButtonConnectedStatus.Checked = true;
+            }
+            else
+            {
+                radioButtonConnectedStatus.Checked = false;
+            }
+        }
     }
 }
