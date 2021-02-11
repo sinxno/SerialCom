@@ -7,11 +7,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace SerialCom
 {
     public partial class FormMain : Form
     {
+
+        bool aboutFormOpen = false;
+
+        int chartPlotIndex = 0;
+        
+        float avg = 0;
+        int avgSum = 0;
+        int minIndex = 0;
+        int maxIndex = 0;
+
+        List<MeasurementPoint> measurmentList = new List<MeasurementPoint>();
+
         public FormMain()
         {
             InitializeComponent();
@@ -199,11 +212,223 @@ namespace SerialCom
             if (serialPort1.IsOpen)
             {
                 radioButtonConnectedStatus.Checked = true;
+                buttonSend.Enabled = true;
+                buttonRecieve.Enabled = true;
+                buttonEnableSensorData.Enabled = true;
+                buttonDisableSensorData.Enabled = true;
             }
             else
             {
                 radioButtonConnectedStatus.Checked = false;
+                buttonSend.Enabled = false;
+                buttonRecieve.Enabled = false;
+                buttonEnableSensorData.Enabled = false;
+                buttonDisableSensorData.Enabled = false;
             }
         }
+
+        private void buttonAbout_Click(object sender, EventArgs e)
+        {
+            if (!aboutFormOpen)
+            {
+                AboutBox1 aboutBox1 = new AboutBox1();
+                aboutBox1.Show();
+                aboutFormOpen = true;
+                this.Visible = false;
+                aboutBox1.FormClosed += new FormClosedEventHandler(aboutFormClosed);
+            }
+            
+        }
+
+        private void aboutFormClosed(object sender, FormClosedEventArgs e)
+        {
+            aboutFormOpen = false;
+            this.Visible = true;
+        }
+
+        private void buttonOpenFile_Click(object sender, EventArgs e)
+        {
+            var filename = String.Empty;
+
+            openFileDialog1.InitialDirectory = "c:\\";
+            openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            openFileDialog1.FilterIndex = 2;
+            openFileDialog1.RestoreDirectory = true;
+            openFileDialog1.FileName = "";
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                filename = openFileDialog1.FileName;
+
+                MessageBox.Show(filename);
+            }
+        }
+
+        private void buttonSaveFile_Click(object sender, EventArgs e)
+        {
+            string[] textFileContent = { "Hello", "World"};
+            saveFileDialog1.FileName = "SerialConfiguration.txt";
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string filename = saveFileDialog1.FileName;
+                File.WriteAllLines(filename, textFileContent);
+
+                if (File.Exists(filename))
+                {
+                    MessageBox.Show("Data saved to " + filename);
+                }
+                else
+                {
+                    MessageBox.Show("An error occured");
+                }
+            }
+        }
+
+        private void buttonEnableSensorData_Click(object sender, EventArgs e)
+        {
+            timerSerialSend.Enabled = true;
+            buttonSend.Enabled = false;
+            buttonRecieve.Enabled = false;
+            buttonSaveChartData.Enabled = false;
+        }
+
+        private void buttonDisableSensorData_Click(object sender, EventArgs e)
+        {
+            timerSerialSend.Enabled = false;
+            timerSerialRecieve.Enabled = false;
+            buttonSend.Enabled = true;
+            buttonRecieve.Enabled = true;
+            buttonSaveChartData.Enabled = true;
+            serialPort1.DiscardInBuffer();
+            serialPort1.DiscardOutBuffer();
+        }
+
+        private void timerSerialSend_Tick(object sender, EventArgs e)
+        {
+            if (serialPort1.IsOpen)
+            {
+                serialPort1.WriteLine("ReadSensor");
+                timerSerialRecieve.Enabled = true;
+                timerSerialSend.Enabled = false;
+
+            }
+        }
+
+        private void timerSerialRecieve_Tick(object sender, EventArgs e)
+        {
+            if (serialPort1.IsOpen)
+            {
+                if (serialPort1.BytesToRead > 0)
+                {
+                    String sensorData;
+                    sensorData = serialPort1.ReadExisting().ToString();
+                    textBoxSerialDataRecieved.AppendText(sensorData);
+
+                    String[] sensorDataSplitted = sensorData.Split(';');
+                    MeasurementPoint measurementPoint = new MeasurementPoint(DateTime.Now.ToLongTimeString(), int.Parse(sensorDataSplitted[0]), int.Parse(sensorDataSplitted[1]), int.Parse(sensorDataSplitted[2]));
+                    measurmentList.Add(measurementPoint);
+
+                    chart1.Series[0].Points.AddXY(measurmentList.Last<MeasurementPoint>().time, measurmentList.Last<MeasurementPoint>().va);
+                    chart1.Series[1].Points.AddXY(measurmentList.Last<MeasurementPoint>().time, measurmentList.Last<MeasurementPoint>().vb);
+                    chart1.Series[2].Points.AddXY(measurmentList.Last<MeasurementPoint>().time, measurmentList.Last<MeasurementPoint>().vab);
+
+                    if(measurmentList.Last<MeasurementPoint>().vab <= measurmentList[minIndex].vab)
+                    {
+
+                        minIndex = measurmentList.Count - 1;
+                    }
+
+                    if (measurmentList.Last<MeasurementPoint>().vab >= measurmentList[maxIndex].vab)
+                    {
+                        maxIndex = measurmentList.Count - 1;
+                    }
+
+                    avgSum += measurmentList.Last<MeasurementPoint>().vab;
+                    avg = (float)avgSum / measurmentList.Count;
+
+                    labelMin.Text = "Min: " + measurmentList[minIndex].vab;
+                    labelMax.Text = "Max: " + measurmentList[maxIndex].vab;
+                    labelAvg.Text = "Avg: " + avg;
+
+
+                    serialPort1.DiscardInBuffer();
+
+                    timerSerialSend.Enabled = true;
+                    timerSerialRecieve.Enabled = false;
+                }
+                
+            }
+
+
+            
+        }
+
+        private void buttonSaveChartData_Click(object sender, EventArgs e)
+        {
+            saveFileDialogChartPoints.FileName = "MeasurmentData.txt";
+
+            if (saveFileDialogChartPoints.ShowDialog() == DialogResult.OK)
+            {
+                progressBar1.Visible = true;
+                progressBar1.Maximum = measurmentList.Count;
+                string filename = saveFileDialogChartPoints.FileName;
+
+                try
+                {
+                    StreamWriter outputFile = new StreamWriter(filename);
+                    outputFile.WriteLine("index;va;vb;vab");
+
+                    foreach (MeasurementPoint measurment in measurmentList)
+                    {
+                        outputFile.WriteLine(measurment.ToString());
+                        progressBar1.Increment(1);
+                    }
+                    outputFile.Close();
+
+                    if (File.Exists(filename))
+                    {
+                        MessageBox.Show("Data saved to " + filename);
+                    }
+                    else
+                    {
+                        MessageBox.Show("An error occured");
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+
+                
+                progressBar1.Value = 0;
+                progressBar1.Visible = false;
+            }
+
+        }
     }
+
+    public class MeasurementPoint
+    {
+        public String time { get; set; }
+        public int va { get; set; }
+        public int vb { get; set; }
+        public int vab { get; set; }
+
+        public MeasurementPoint(String time, int va, int vb, int vab)
+        {
+            this.time = time;
+            this.va = va;
+            this.vb = vb;
+            this.vab = vab;
+        }
+
+        public override string ToString()
+        {
+            return time + ";" + va + ";" + vb + ";" + vab;
+        }
+
+    }
+
 }
