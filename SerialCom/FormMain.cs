@@ -15,8 +15,6 @@ namespace SerialCom
     {
 
         bool aboutFormOpen = false;
-
-        int chartPlotIndex = 0;
         
         float avg = 0;
         int avgSum = 0;
@@ -411,19 +409,25 @@ namespace SerialCom
 
     public class MeasurementPoint
     {
+        //The objects variables
+        //{get; set;} makes it possible to both change the variable(set) and read the variable(get)
+        //It is possible to remove either get and set or both to make the object more rigid.
         public String time { get; set; }
         public int va { get; set; }
         public int vb { get; set; }
         public int vab { get; set; }
 
+        //The constructor of the object Needs to be called when you want to create a new object of this type
         public MeasurementPoint(String time, int va, int vb, int vab)
         {
+            //"this" referes to the objects variable. It is needed because the variables sent to the constructor and the objects variables are named the same. 
             this.time = time;
             this.va = va;
             this.vb = vb;
             this.vab = vab;
         }
 
+        //overrides the base object ToString(). makes it possible to decide what is printed when ToString is called.
         public override string ToString()
         {
             return time + ";" + va + ";" + vb + ";" + vab;
