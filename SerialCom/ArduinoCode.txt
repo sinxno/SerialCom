@@ -9,6 +9,15 @@ int ledState = 0;
 String inputString = "";
 bool stringComplete = false;
 
+#define LDR_A A0
+#define LDR_B A1
+#define BTN 2
+#define LED 13
+
+int a;
+int b;
+int vab;
+
 
 void setup() {
   // Setup pins and serial:
@@ -38,6 +47,11 @@ void turnLedOff() {
 
 
 void loop() {
+  
+  a= analogRead(LDR_A);
+  b= analogRead(LDR_B);
+  vab = b-a;
+  
   // read the state of the pushbutton value:
   buttonState = digitalRead(buttonPin);
 
@@ -85,12 +99,19 @@ void loop() {
       }
     }
 
+    if (inputString == "ReadSensor\n") {
+      Serial.print(a);
+      Serial.print(";");
+      Serial.print(b);
+      Serial.print(";");
+      Serial.println(vab);
+      
+    }
+
     //reset the serial variables
     inputString = "";
     stringComplete = false;
   }
-
-
 }
 
 //Runs when there is data on the serial port. Stores the data as an string, and sets stringComplete to true when all data is stored
