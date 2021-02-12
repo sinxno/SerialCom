@@ -344,6 +344,7 @@ namespace SerialCom
 
                     avgSum += measurmentList.Last<MeasurementPoint>().vab;
                     avg = (float)avgSum / measurmentList.Count;
+                    chart1.Series[3].Points.AddXY(DateTime.Now.ToLongTimeString(), avg);
 
                     labelMin.Text = "Min: " + measurmentList[minIndex].vab;
                     labelMax.Text = "Max: " + measurmentList[maxIndex].vab;
@@ -364,7 +365,7 @@ namespace SerialCom
 
         private void buttonSaveChartData_Click(object sender, EventArgs e)
         {
-            saveFileDialogChartPoints.FileName = "MeasurmentData.txt";
+            saveFileDialogChartPoints.FileName = "MeasurmentData.csv";
 
             if (saveFileDialogChartPoints.ShowDialog() == DialogResult.OK)
             {
